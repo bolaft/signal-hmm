@@ -105,6 +105,8 @@ HMMs_source <- function() {
 \textbf{Call this function, and check the values of source1\_2 <- HMMs\_source()}
 \end{quotation}
 
+HMMs\_source() correctly returns two HMMs:
+
 \begin{lstlisting}
 $m1
 $m1$States
@@ -174,6 +176,8 @@ HMM_simu <- function(hmm1, hmm2, T = 10){
 \textbf{Call this function, and check the values of train1\_2 <- HMM\_simu(source1\_2$m1, source1\_2$m2, 1000)}
 \end{quotation}
 
+The function returns a series of observations. The possible symbols match those of the HMM defined in HMMs\_source():
+
 \begin{lstlisting}
 $obs1
    [1] "c" "b" "b" "a" "b" "a" "b" "c" "b" "c" "b" "c" "c" "a" "c" "a" "a" "b" "c" "b" "a" "c" "a" "c" "c" "c" "a" "a" "a" "b" "a" "c" "c" "a" "a" "c" "c" "b" "c" "c" "c" "a" "c" "c" "c" "c" "a" "c" "a" "c" "b" "c"
@@ -190,7 +194,7 @@ $obs2
 
 \subsubsection{Description}
 
-Applies the forward algorithm and then end with the computation of the likelihood of the observation sequence.
+Applies the forward algorithm and then ends with the computation of the likelihood of the observation sequence.
 
 \subsubsection{Code}
 
@@ -276,6 +280,8 @@ checkLikelihoodBW <- function(hmm, obs){
 \textbf{At each iteration, print the log-likelihood, check that it increases for each iteration. If not, something is wrong in your functions.}
 \end{quotation}
 
+The log-likelihood correctly increases at each iteration:
+
 \begin{lstlisting}
 Likelihood after iteration 1 :   -104.5332 
 Likelihood after iteration 2 :   -104.5329 
@@ -319,7 +325,7 @@ train_BW <- function(training, N = 10) {
 \subsubsection{Results}
 
 \begin{quotation}
-\textbf{Now compare the original source models with the corresponding trained versions. Discuss and explain your results.}
+\textbf{Compare the original source models with the corresponding trained versions.}
 \end{quotation}
 
 \textbf{Common values:}
@@ -367,6 +373,12 @@ states         a          b          c
     s1 0.1641866 0.08025629 0.75555710
     s2 0.4012511 0.53199452 0.06675439
 \end{lstlisting}
+
+\begin{quotation}
+\textbf{Discuss and explain your results.}
+\end{quotation}
+
+Transition and emission matrices have changed after training to adjust better to the observed data. Given the set of observations, the Baum-Welch algorithm adjusted the probabilities at each iteration to converge towards the maximum likelihood estimate of the HMM parameters.
 
 \subsection{classify}
 
@@ -420,6 +432,18 @@ classify <- function(source1_2, model1_2, T = 10, N = 1) {
 
 \textbf{Confusion matrix:}
 
+\hspace{20mm}
+
+\begin{tabular}{ c | c | c }
+  & Found True & Found False \\
+  \hline
+  Is True & 316 & 184 \\
+  \hline
+  Is False & 73 & 427 \\
+\end{tabular}
+
+\hspace{20mm}
+
 \begin{lstlisting}
          found true found false
 is true         316         184
@@ -428,9 +452,11 @@ is false         73         427
 
 \textbf{Recognition rate:}
 
-\begin{lstlisting}
-[1] 743/1000
-\end{lstlisting}
+\hspace{10mm}
+
+743 recognized out of 1000 (74.3%)
+
+\hspace{10mm}
 
 \subsection{Plot\_Reco}
 
@@ -458,7 +484,7 @@ Plot_Reco <- function(source1_2, model1_2, Tmax = 100, N = 1) {
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=120mm]{recograph.png}
+\includegraphics[width=90mm]{recograph.png}
 \caption{Recognition rate by sample size}
 \label{overflow}
 \end{figure}
